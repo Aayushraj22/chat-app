@@ -1,0 +1,59 @@
+.signin, .signup{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: whitesmoke;
+
+    & > form{
+        background: white;
+        border-radius: 0.5rem;
+        min-width: 250px;
+        max-width: 400px;
+        width: 50%;
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        box-shadow: 1px 1px 10px 3px whitesmoke;
+        align-items: center;
+
+        & > .btn{
+            margin-top: 1.5rem;
+            width: 180px;
+            line-height: 0.9rem;
+            font-weight: 600;
+            line-height: 1.8rem;
+            outline: none;
+            border: 2px solid dodgerblue;
+            color: dodgerblue;
+            border-radius: 0.2rem;
+            background: white;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+            &:hover{
+                background: dodgerblue;
+                color: rgb(218, 235, 252);
+                box-shadow: 1px 1px 10px 4px rgb(177, 212, 247);
+            }
+            
+        }
+    }
+}
+
+.linkStyle{
+    text-decoration: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: dodgerblue;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    transition: background ease-in 0.2s;
+
+    &:hover{
+        background: rgba(64, 154, 244, 0.336);
+    }
+}
