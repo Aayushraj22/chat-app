@@ -6,6 +6,7 @@
     justify-content: center;
     flex-direction: column;
     background: whitesmoke;
+    gap: 1rem;
 
     & > form{
         background: white;

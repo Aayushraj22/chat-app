@@ -6,9 +6,9 @@ import './App.css'
 
 function App() {
   
-  const authed = localStorage.getItem('chatAuth');
+  const curUserId = localStorage.getItem('userID');
 
-  if(!authed){
+  if(!curUserId){
     return <Navigate to='/signin' />
   }
 

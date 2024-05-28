@@ -1,3 +1,8 @@
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { auth, db } from '../firebase/config';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+
+// structure of signin and signup form data and assosicated method with them
 function userAuthenticationForm(formType) {
     // default signin form structure.
     const formData = {
@@ -18,7 +23,20 @@ function userAuthenticationForm(formType) {
         return formData;
     }
 
-    return { updateUserData, getUserData }
+    function resetUserData(){
+        return formType ? {
+            email: '',
+            password: '',
+            username: '',
+            imgurl: '',
+        }:
+        {
+            email: '',
+            password: '',
+        }
+    }
+
+    return { updateUserData, getUserData, resetUserData }
 }
 
 function validateUserFormData(formData){
@@ -38,4 +56,47 @@ function validateUserFormData(formData){
     return true;
 }
 
-export { userAuthenticationForm, validateUserFormData}
+
+async function signupUser(formData){
+    const {email, password, username, imgurl} = formData;
+    
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth,email,password);
+        const uid = userCredential.user.uid;
+        await addDoc(collection(db, 'users'), {
+            authId: uid,
+            email,
+            password,
+            username,
+            imgurl,
+        })
+
+    } catch (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        alert('error : ',errorCode)
+    }
+}
+
+async function signinUser(formData){
+    const {email, password} = formData;
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const uid = userCredential.user.uid;
+
+        const querySnapshots = await getDocs(query(collection(db, 'users'), where('authId','==',uid)));
+        if(querySnapshots.size === 1){
+            querySnapshots.forEach((doc) => {
+                const data = doc.data();
+                localStorage.setItem('userID', data.authId);
+            })
+        }
+    } catch (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        alert('error : ',errorCode)
+    }
+}
+
+export { userAuthenticationForm, validateUserFormData, signupUser, signinUser}

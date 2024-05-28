@@ -11,19 +11,22 @@ export default function Input({
     placeholder,
     required,
     updateUserData,
+    updateSearchedValue,
 }) {
 
     const [data, setData] = useState('')
     function handleUpdateData(e){
         const data = e.target.value;
         setData(data);
-        updateUserData(name,data); // this method will update the [name] property of an object which is closer of this function in parent component.
+        updateUserData && updateUserData(name,data); // this method will update the [name] property of an object which is closer of this function in parent component[signin,signup].
+
+        updateSearchedValue && updateSearchedValue(data);  // this method update the value of a variable that is closure of it present in parent component where this method is defined, and help to get the searched value.
     }
 
   return (
     <div className='inputContainer'>
         <label htmlFor={id}>
-            {name.slice(0,1).toUpperCase() + name.slice(1)}
+            {name && name.slice(0,1).toUpperCase() + name.slice(1)}
         </label>
         <input 
             id={id} 

@@ -1,8 +1,19 @@
 import React from 'react'
+import { FaSearch } from "react-icons/fa";
 
-function Navbar() {
+import User from '../user/User'
+import './navbar.styles.css'
+
+function Navbar({makeSearchAreaVisible}) {
   return (
-    <div>Navbar</div>
+    <nav className='navbar'>
+      <User />
+
+      {/* searchIconContainer */}
+      <div className="searchIconContainer">
+        <FaSearch className='iconStyle' onClick={() => makeSearchAreaVisible(true)}/>
+      </div>
+    </nav>
   )
 }
 
