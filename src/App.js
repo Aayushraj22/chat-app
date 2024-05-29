@@ -3,12 +3,9 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 import './App.css'
 
-
 function App() {
-  
-  const curUserId = localStorage.getItem('userID');
 
-  if(!curUserId){
+  if(!localStorage.getItem('userID')){
     return <Navigate to='/signin' />
   }
 

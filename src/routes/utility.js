@@ -69,6 +69,7 @@ async function signupUser(formData){
             password,
             username,
             imgurl,
+            chat: {},
         })
 
     } catch (error) {
@@ -88,8 +89,7 @@ async function signinUser(formData){
         const querySnapshots = await getDocs(query(collection(db, 'users'), where('authId','==',uid)));
         if(querySnapshots.size === 1){
             querySnapshots.forEach((doc) => {
-                const data = doc.data();
-                localStorage.setItem('userID', data.authId);
+                localStorage.setItem('userID', doc.id);
             })
         }
     } catch (error) {
@@ -99,4 +99,10 @@ async function signinUser(formData){
     }
 }
 
-export { userAuthenticationForm, validateUserFormData, signupUser, signinUser}
+function signout(){
+    localStorage.removeItem('userID');
+    window.location.reload()
+}
+
+
+export { userAuthenticationForm, validateUserFormData, signupUser, signinUser, signout}

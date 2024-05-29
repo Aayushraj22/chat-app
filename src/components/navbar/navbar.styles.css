@@ -2,8 +2,9 @@
     width: 100%;
     display: grid;
     height: 50px;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 60% 35% 5%;
     border-bottom: 1px solid rgb(194, 192, 192);
+    position: relative;
 
 
     & > .searchIconContainer{
@@ -28,5 +29,52 @@
                 background: rgb(164, 189, 236);
             }
         }
+    }
+
+    & > .threeDot{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        & > .dropdown{
+            cursor: default;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            height: 120px;
+            width: 120px;
+            background: white;
+            z-index: 1;
+            border-radius: 0.5rem;
+            padding-block: 0.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            overflow: hidden;
+            box-shadow: 1px 1px 10px 1px;
+
+            & > button{
+                width: 100%;
+                line-height: 2rem;
+                border: none;
+                outline: none;
+                background: rgb(252, 83, 83);
+                color: white;
+                transition: all 0.2s ease-in-out;
+                cursor: pointer;
+
+                &:hover{
+                    background: red;
+                }
+            }
+        }
+
+        & > .hideDropdown{
+            display: none;
+        }
+
     }
 }

@@ -5,6 +5,7 @@
     align-items: center;
     gap: 0.5rem;
     padding-inline: 0.5rem;
+   
 
     & > .userImgContainer{
         width: 40px;
@@ -28,5 +29,13 @@
         flex-direction: column;
         gap: 4px;
         justify-content: center;
+    }
+}
+
+.activeUser{
+    cursor: pointer;
+    
+    &:hover{
+        background: rgb(165, 202, 240);
     }
 }
