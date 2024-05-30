@@ -1,4 +1,5 @@
 import { Timestamp, addDoc, arrayUnion, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 import {db} from './config';
 
@@ -24,14 +25,17 @@ async function storeMessage(msg,senderID,receiverID){
 // this method takes timeInMS and return time from that
 function getTime(timeInMS){
     const date = new Date(timeInMS);
-    return `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`;
+    return `${makeTwoDigitTimeSegments(date.getHours())} : ${makeTwoDigitTimeSegments(date.getMinutes())}`;
+}
+
+function makeTwoDigitTimeSegments(digit){
+    return digit > 9 ? String(digit) : (`0${digit}`);
 }
 
 async function findUserFriend(senderID, receiverID){
     const docRef = await getDoc(doc(db,'users',senderID));
     
     const {chat} = docRef.data();
-    console.log('chat: ',chat);
 
     return chat[receiverID];
 }
@@ -55,6 +59,16 @@ async function addMessageIDInUser(senderID, receiverID, msgId){
     }
 }
 
+async function getMessageDoc(msgID){
+    const msgDoc = await getDoc(doc(db,'messages',msgID));
+    return msgDoc.data();
+}
+
+function generateUniqueID(){
+    const uniqueID = uuidv4();
+    return uniqueID;
+}
 
 
-export {storeMessage}
+
+export {storeMessage, getMessageDoc, getTime, generateUniqueID}

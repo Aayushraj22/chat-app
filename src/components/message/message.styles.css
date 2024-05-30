@@ -1,0 +1,46 @@
+.msgContainer{
+  max-width: 220px;
+  width: fit-content;
+  padding: 3px;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid rgb(0, 174, 255);
+  background: rgb(207, 234, 247);
+
+  & > .msgText{
+    background: rgb(150, 215, 245);
+    color: rgb(3, 124, 180);
+    padding: 0.2rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  & > img{
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    object-fit: cover;
+
+  }
+
+  & > .timeBox{
+    width: 100%;
+    text-align: right;
+    font-size: 0.5rem;
+  }
+
+}
+
+.rightAligned{
+    margin-left: auto;
+    border-color: rgb(0, 254, 119);
+    background: rgb(178, 239, 206);
+
+    & > .msgText{
+        background: rgb(89 235 157 / 80%);
+        color: rgb(0 155 72 / 99%);
+    }
+}

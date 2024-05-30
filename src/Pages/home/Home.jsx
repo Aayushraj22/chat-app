@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { MdClose } from "react-icons/md";
-import { VscSend } from "react-icons/vsc";
 import { MdDownloadDone } from "react-icons/md";
 
 
 import './home.styles.css'
 import Navbar from '../../components/navbar/Navbar'
 import Input from '../../components/customInput/Input'
-import { MessageText, Search, findUser } from '../utility';
+import { Search, findUser } from '../utility';
 import User from '../../components/user/User';
-import { storeMessage } from '../../firebase/message.firestore';
 import { getUser } from '../../firebase/user.firestore';
+import Chatarea from '../../components/chatArea/Chatarea';
 
 function Home() {
   const [isVisibleSearchArea, setIsVisibleSearchArea] = useState(false);
-  const [isMsgDeleted, setIsMsgDeleted] = useState(false)
   const [isSearchTextDeleted, setIsSearchTextDeleted] = useState(false);
   const [searchedUser, setSearchedUser] = useState('')
   const [activeUserId, setActiveUserId] = useState('')
@@ -23,19 +21,9 @@ function Home() {
 
   const accountHolder = localStorage.getItem('userID');
   const {getSearchedValue, updateSearchedValue} = Search();
-  const {getMessageText, updateMessage} = MessageText();
   
  
-  async function sendMessage(){
-    // msg sending initiated
-    setIsMsgDeleted(true);
-
-    const msg = getMessageText();
-    updateMessage('');
-
-    await storeMessage(msg, accountHolder,activeUserId);
-    setIsMsgDeleted(false)
-  }
+  
 
   async function displaySearchedUser(){
     searchNotFound && setSearchNotFound('');
@@ -144,16 +132,7 @@ function Home() {
       {/* rightside for chat area */}
       <section className='homeRightSection'>
         {activeUserId ? (
-          <>
-            <Navbar id={activeUserId}/>
-            <div className="chatContainer">
-              <div className='chatArea'></div>
-              <div className='chatInputControl'>
-                <Input type='text' placeholder='write message ...' deleted={isMsgDeleted} updateMessage={updateMessage} />
-                <span className='sendStyle' onClick={sendMessage}><VscSend /></span>
-              </div>
-            </div>
-          </>
+          <Chatarea chatID={activeUserId}/>
             ) : (
           <>
             <h2>Select user to Chat from chatList</h2>

@@ -1,0 +1,58 @@
+.chatContainer {
+  /* border: 1px solid blue; */
+  height: calc(100vh - 50px);
+
+  & > .chatArea {
+    /* border: 1px solid #ffff00; */
+    height: calc(100% - 50px);
+    background: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px 10px;
+  }
+
+  & > .chatInputControl {
+    /* border: 1px solid purple; */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-inline: 0.5rem;
+    gap: 0.3rem;
+
+    & > .controlIconStyle {
+      width: 40px;
+      height: 2rem;
+      background: rgb(127, 233, 127);
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 0.3rem;
+      transition: background 0.2s ease-in-out;
+
+      &:hover {
+        background: rgb(76, 234, 76);
+      }
+    }
+
+    & > .fileIconStyle{
+      background: white;
+      position: relative;
+
+      & > input{
+        z-index: -1;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border-radius: 0.3rem;
+
+      }
+
+      &:hover{
+        background: rgb(245, 245, 63);
+      }
+    }
+  }
+}

@@ -31,8 +31,13 @@ export default function Input({
     }
 
     useEffect(() => { 
-        setDeleteText(deleted);
-    }, [deleted]) 
+        if(deleted !== deleteText){
+            setDeleteText(deleted);
+        }else{
+            setData('');
+        }
+        
+    }, [deleted,id]) 
     
 
     if(deleteText){
