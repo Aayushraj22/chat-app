@@ -44,3 +44,30 @@
         color: rgb(0 155 72 / 99%);
     }
 }
+
+.shimmerMsgContainer{
+    width: 150px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    background: hsl(132deg 27.78% 87.86%);
+    align-items: flex-end;
+    border-radius: 10px;
+
+    & > .shimmerMsg{
+        width: 100%;
+        flex: 1;
+        background: #98d998;
+        border-radius: 10px;
+    }
+
+    & > .shimmerTime{
+        height: 10px;
+        width: 100%;
+        background: #98d998;
+        width: 50%;
+        border-radius: 10px;
+    }
+}

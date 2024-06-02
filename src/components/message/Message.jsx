@@ -5,7 +5,7 @@ import { getMessageDoc, getTime } from '../../firebase/message.firestore';
 import { getFileFromCloud } from '../../firebase/storage';
 
 function Message({id}) {
-    // console.log('message with id: ',id)
+    const [isLoading, setIsLoading] = useState(true)
     const [myMsg, setMyMsg] = useState('')
     const {createdBy, msg, timeStamp, imgurl} = myMsg;
 
@@ -28,14 +28,27 @@ function Message({id}) {
     }
 
     useEffect(() => {
-        getMessageDoc(id).then(
-            msgData => {structureMessage(msgData).then((msgObj) => setMyMsg(msgObj))}
-        );
+       assignInitialValueToState(id);
+
+        async function assignInitialValueToState(msgID){
+            try {
+                const msgObj = await getMessageDoc(msgID);
+                const msgData = await structureMessage(msgObj);
+                setMyMsg(msgData);
+                setIsLoading(false);
+            } catch (error) {
+                setIsLoading(false);
+            }
+        }
+        
     }, [id])
+
+    if(isLoading)
+        return <ShimmerMessage />
     
   return (
     <div className={`msgContainer ${createdBy === myID ? 'rightAligned' : ''}`}>
-        {imgurl && <img src={imgurl} alt='' />}
+        {imgurl && <img src={imgurl} loading='lazy' alt='' />}
         {msg && <p className="msgText">{msg}</p>}
         <span className='timeBox'>{time}</span>
     </div>
@@ -43,3 +56,12 @@ function Message({id}) {
 }
 
 export default Message
+
+function ShimmerMessage(){
+    return (
+        <div className='shimmerMsgContainer'>
+            <p className='shimmerMsg'></p>
+            <span className='shimmerTime'></span>
+        </div>
+    )
+}

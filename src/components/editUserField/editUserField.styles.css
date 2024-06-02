@@ -1,0 +1,21 @@
+.detailsContainer{
+    padding: 0 0.5rem;
+
+    & > .firstChild{
+        display: grid;
+        grid-template-columns: 30% 70%;
+        height: 40px;
+        align-items: center;
+    }
+
+    & > .secondChild{
+        display: flex;
+        gap: 0.2rem;
+
+        & > input[type='text']{
+            flex: 1;
+            outline: none;
+            padding: 0 0.5rem;
+        }
+    }
+}

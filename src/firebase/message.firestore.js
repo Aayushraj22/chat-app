@@ -20,6 +20,7 @@ async function storeMessage(msg,senderID,receiverID){
     // adding msgId in receiver.chat['senderID'] property of document
     await addMessageIDInUser(receiverID, senderID, docRef.id);
 
+    return docRef.id;
 }
 
 // this method takes timeInMS and return time from that

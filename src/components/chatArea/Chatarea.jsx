@@ -31,8 +31,10 @@ function Chatarea({ chatID }) {
             const validImageType = ['image/jpg','image/jpeg','image/png','image/avif','image/webp','image/gif']
             // if fileType is image, then convert it into base64 or use service of firestore to store image in a bucket and get id of that place where image stored, then use that to send as msg and store in db('messages')
             
-            if(!validImageType.includes(inputFile.type))
+            if(!validImageType.includes(inputFile.type)){
+                alert('Use Valid Image type')
                 return;
+            }
 
             inputFile = storeFileInCloud(inputFile);
         }else{  // no msg to send
@@ -40,8 +42,10 @@ function Chatarea({ chatID }) {
             return;
         }
 
-        await storeMessage(msg || inputFile, myID, chatID);
+        const msgID = await storeMessage(msg || inputFile, myID, chatID);
         setIsMsgDeleted(false)
+
+        setMyChat([...myChat,msgID]);
     }
 
 

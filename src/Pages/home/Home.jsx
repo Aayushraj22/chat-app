@@ -39,24 +39,13 @@ function Home() {
   }
 
   async function rearrangeUserChatList(userId){
-    let currentUser = undefined;
 
-    let modifiedUserChatList = myUserChatList.filter((user) => {
-      if(user.id === userId){
-        currentUser = {...user,}
-        return;
-      }
-
-      return user;
+    const modifiedUserChatList = myUserChatList.filter((chatID) => {
+      return chatID !== userId;
     })
 
-    if(currentUser === undefined){
-      const userDoc = await getUser(userId);
-      currentUser = {...userDoc, id: userId};
-    }
-
-    modifiedUserChatList = [currentUser,...modifiedUserChatList];
-    setMyUserChatList(modifiedUserChatList);
+    // selected user is new or already exits, it comes to firt position
+    setMyUserChatList([userId , ...modifiedUserChatList]);
   }
 
   function selectUserToChat(userId){
@@ -77,19 +66,18 @@ function Home() {
 
 
   useEffect(() => {
-    const myUserID = accountHolder;
-    getUser(myUserID).then((data) => {
-      const {chat} = data;
 
-      const chatList = [];
-      for(let key in chat){
-        chatList.push({
-          msg: [...chat[key]],
-          id: key,
-        })
+    assignInitialValueToState(accountHolder);
+
+    async function assignInitialValueToState(userID){
+
+      try {
+        const {chat} = await getUser(userID);
+        setMyUserChatList(Object.keys(chat));
+      } catch (error) {
+        alert('error occurs chatlist of user not found');
       }
-      setMyUserChatList(chatList);
-    })  
+    }
   }, [])
   
   return (
@@ -120,8 +108,8 @@ function Home() {
               </>
                 ) : (
               <>
-                {myUserChatList && myUserChatList?.map((user) => 
-                  <User id={user.id} key={user.id} selectUserToChat={selectUserToChat}/>)
+                {myUserChatList && myUserChatList?.map((chatID) => 
+                  <User id={chatID} key={chatID} selectUserToChat={selectUserToChat}/>)
                 }
               </>)
             }

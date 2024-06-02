@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./config";
 
 async function getUser(id){
@@ -12,6 +12,13 @@ async function getChatOfUser(userID, chatID){
     return document?.chat[chatID] || [];
 }
 
+// username can be updated after proper check that update value doesnot exits for any other user
+async function updateUserDocField(fieldname,userID,value){
+    await updateDoc(doc(db, 'users', userID),{
+        [fieldname]: value,
+    })
+}
 
 
-  export {getUser,getChatOfUser};
+
+  export {getUser,getChatOfUser, updateUserDocField};

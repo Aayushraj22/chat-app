@@ -4,6 +4,7 @@ import './user.styles.css';
 import { getUser } from '../../firebase/user.firestore';
 
 function User({id, userDoc, selectUserToChat}) {
+    const [isLoading, setIsLoading] = useState(true)
     const [userData, setUserData] = useState('');
     const {imgurl, username} = userData;
     
@@ -14,19 +15,31 @@ function User({id, userDoc, selectUserToChat}) {
 
 
     useEffect(() => {
-      if(id!==undefined){ 
-        getUser(id).then((data) => {
-          setUserData({
-            ...data,
-            id: id,
-            });
-        })
-      }else{
-        setUserData(userDoc)
+    
+      assignInitialValueToState(id, userDoc);
+
+      async function assignInitialValueToState(id, userDoc){
+        try {
+          if(id){
+            const userData = await getUser(id);
+            setUserData({
+              ...userData,
+              id: id,
+            })
+          }else{
+            setUserData(userDoc);
+          }
+
+          setIsLoading(false);
+        } catch (error) {
+          setIsLoading(false)
+        }
       }
 
     }, [id,userDoc])
 
+    if(isLoading)
+      return <SkeletonUser />
 
   return (
     <div className={`user ${selectUserToChat && 'activeUser'}`} onClick={handleOnClickUser}>
@@ -35,10 +48,19 @@ function User({id, userDoc, selectUserToChat}) {
         </div>
 
         <div className='userDetailsContainer'>
-            <span>{username || 'Guest User'}</span>
+            <span>{username?.slice(0,1).toUpperCase() + username?.slice(1) || 'Guest User'}</span>
         </div>
     </div>
   )
+}
+
+
+function SkeletonUser(){
+  return (
+  <div className="shimmerUser">
+    <div className='imgShimmer'></div>
+    <div className='textShimmer'></div>
+  </div>)
 }
 
 export default User

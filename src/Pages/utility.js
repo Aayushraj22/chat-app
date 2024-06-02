@@ -30,6 +30,7 @@ function MessageText(){
   }
 
 
+// find user based on provided username in 'users' collection of db
 async function findUser(username){
     const userQuery = query(collection(db,'users'), where('username', '==', username));
 

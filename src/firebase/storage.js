@@ -1,15 +1,15 @@
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes, uploadString } from "firebase/storage";
 import { storage } from "./config";
 import { generateUniqueID } from "./message.firestore"
 
-function storeFileInCloud(file){
+async function storeFileInCloud(file){
     const uniqueID = generateUniqueID();
 
     const imageRef = `images/${uniqueID}.${file.type.split('/')[1]}`
 
     const storageRef = ref(storage, imageRef);
 
-    uploadBytes(storageRef, file).then(() => {});
+    await uploadBytes(storageRef, file);
 
     return imageRef;
 }
@@ -20,5 +20,14 @@ async function getFileFromCloud(imagePath){
     return url;
 }
 
+async function storeDataUrlImage(image,type){
+    const uniqueID = generateUniqueID();
+    const imageRef = `images/${uniqueID}.${type.split('/')[1]}`
+    const storageRef = ref(storage, imageRef);
+    await uploadString(storageRef, image, 'data_url');
+    
+    return imageRef;
+}
 
-export {storeFileInCloud, getFileFromCloud};
+
+export {storeFileInCloud, getFileFromCloud,storeDataUrlImage};
