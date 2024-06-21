@@ -44,14 +44,18 @@ function validateUserFormData(formData){
     const {email,password} = formData;
 
     if(!email || !password)
-        return;
+        return false;
+
+    //password should be >= 6 character
+    if(password.length < 6)
+        return false;
 
     // formData of signup form must have username
     if(formData.username === undefined)  // means current formData is of signin form
         return true;
 
     if(!formData.username)
-        return;
+        return false;
 
     return true;
 }

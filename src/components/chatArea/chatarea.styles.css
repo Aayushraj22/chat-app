@@ -3,7 +3,6 @@
   height: calc(100vh - 50px);
 
   & > .chatArea {
-    /* border: 1px solid #ffff00; */
     height: calc(100% - 50px);
     background: whitesmoke;
     display: flex;
@@ -11,6 +10,7 @@
     gap: 5px;
     padding: 5px 10px;
     overflow: hidden;
+    position: relative;
 
     &:hover,&:active,&:focus{
       overflow-y: scroll;

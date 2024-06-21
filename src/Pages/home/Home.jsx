@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MdClose } from "react-icons/md";
-import { MdDownloadDone } from "react-icons/md";
+import { IoSearchSharp } from "react-icons/io5";
 
 
 import './home.styles.css'
@@ -10,6 +10,7 @@ import { Search, findUser } from '../utility';
 import User from '../../components/user/User';
 import { getUser } from '../../firebase/user.firestore';
 import Chatarea from '../../components/chatArea/Chatarea';
+import CustomButton from '../../components/customButton/CustomButton';
 
 function Home() {
   const [isVisibleSearchArea, setIsVisibleSearchArea] = useState(false);
@@ -88,10 +89,13 @@ function Home() {
         <div className='usersContainer'> 
           {isVisibleSearchArea && (
             <div className='searchBoxContainer'>
-              <Input type='search' placeholder='Search...' updateSearchedValue={updateSearchedValue} deleted={isSearchTextDeleted} />
-              <span onClick={displaySearchedUser}>
-                <MdDownloadDone />
-              </span>
+              <Input type='search'
+                placeholder='Search...'
+                updateSearchedValue={updateSearchedValue} deleted={isSearchTextDeleted} />
+              <CustomButton onClick={displaySearchedUser} 
+              bgColor='yellowBG' buttonWidth='40px' >
+                <IoSearchSharp size={20}/>
+              </CustomButton>
             </div>)
           }
           <div className='userList'>

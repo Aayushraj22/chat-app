@@ -28,9 +28,9 @@ function Navbar({id, makeSearchAreaVisible}) {
     setShowModal(true)
   }
 
-  function handleToSetting(){
+  // function handleToSetting(){
 
-  }
+  // }
 
   // hide dropdown when clicked other than 3-dot icon or any dropdown-button
   const handleClickOutsideOfThreeDot = () => {
@@ -52,7 +52,7 @@ function Navbar({id, makeSearchAreaVisible}) {
       {/* searchIconContainer */}
       {makeSearchAreaVisible instanceof Function && 
         (<div className="searchIconContainer">
-          <FaSearch className='iconStyle' onClick={() => makeSearchAreaVisible(true)}/>
+          <FaSearch className='searchIconStyle' onClick={() => makeSearchAreaVisible(true)}/>
         </div>)
       }
 
@@ -61,7 +61,7 @@ function Navbar({id, makeSearchAreaVisible}) {
       <span className='threeDot'>
         <IoEllipsisVerticalSharp onClick={handleToggleDropdown}/>
         <div className="dropdown hideDropdown" ref={dropdownRef}>
-          <CustomButton onClick={handleToSetting}>Setting</CustomButton>
+          {/* <CustomButton onClick={handleToSetting}>Setting</CustomButton> */}
           <CustomButton onClick={handleToEditProfile}>Edit Profile</CustomButton>
           {showModal && (createPortal(<Modal onClose={() => setShowModal(false)}><EditUser /></Modal>, document.getElementById('root')))}
           <CustomButton onClick={handleToLogout} bgColor='redBG'>Logout</CustomButton>

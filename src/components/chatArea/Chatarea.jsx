@@ -10,8 +10,10 @@ import Input from '../customInput/Input';
 import { getChatOfUser } from '../../firebase/user.firestore';
 import Message from '../message/Message';
 import { storeFileInCloud } from '../../firebase/storage';
+import NavigateToBottom from '../navigateToBottom/NavigateToBottom';
 
 function Chatarea({ chatID }) {
+    const scrollToBottomRef = useRef(null)
     const inputRef = useRef(null);
     const [isMsgDeleted, setIsMsgDeleted] = useState(false);
     const [myChat, setMyChat] = useState('')
@@ -53,6 +55,20 @@ function Chatarea({ chatID }) {
         inputRef.current.click();
     }
 
+    
+    const scrollToBottom = () => {
+        const element = scrollToBottomRef.current;
+        element.scrollTo({
+            top: element.scrollHeight,
+            behavior: 'smooth',
+        });
+    }
+
+    
+
+    
+
+
     useEffect(() => {
 
         getChatOfUser(myID, chatID).then(data => setMyChat(data));
@@ -63,14 +79,15 @@ function Chatarea({ chatID }) {
         <>
             <Navbar id={chatID} />
             <div className="chatContainer">
-                <div className='chatArea'>
+                <div className='chatArea' ref={scrollToBottomRef}>
                     {myChat && myChat?.map((msgID) => <Message key={msgID} id={msgID}/>)}
+                    <NavigateToBottom scrollToBottom={scrollToBottom} />
                 </div>
                 <div className='chatInputControl'>
                     <Input id={chatID} type='text' placeholder='write message ...' deleted={isMsgDeleted} updateMessage={updateMessage} />
                     <span className='controlIconStyle fileIconStyle' onClick={handleOpenFileSystem} >
                         <FiPaperclip /><input ref={inputRef} type='file' /></span>
-                    <span className='controlIconStyle' onClick={sendMessage}><VscSend /></span>
+                    <span id='sendTextMsg' className='controlIconStyle' onClick={sendMessage}><VscSend /></span>
                 </div>
             </div>
         </>

@@ -1,7 +1,10 @@
 .btn{
 
     width: 100%;
-    line-height: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     outline: none;
     background: rgb(143, 140, 177);
@@ -29,5 +32,13 @@
 
     &:hover{
         background: rgb(85, 84, 84)
+    }
+}
+
+.yellowBG{
+    background: rgb(244, 172, 38);
+
+    &:hover{
+        background: orange;
     }
 }

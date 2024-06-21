@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { MdCloudUpload } from "react-icons/md";
 
 import './editUser.styles.css'
@@ -17,18 +17,20 @@ function EditUser() {
     const [userGeneralField, setUserGeneralField] = useState([])
     const [canSave, setCanSave] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
+    const refFileInput = useRef();
 
 
     const handleToClickImage = () => {
-        const imgEle = document.querySelector('#userImg');
-        imgEle.click();
+        const inputFile = refFileInput.current;
+        inputFile.click();
     }
 
     const handleToChangeImage = (e) => {
         const image = e.target?.files[0];
-        const type = image.type;
         if(!image)
             return;
+        
+        const type = image.type;
 
         const reader = new FileReader();
         reader.readAsDataURL(image);
@@ -42,8 +44,8 @@ function EditUser() {
     }
 
     const handleToRemoveImage = async() => {
-        const imgEle = document.querySelector('#userImg');
-        imgEle.value = '';
+        const inputFile = refFileInput;
+        inputFile.value = '';
         setImgData({
             imgurl: '',
             type: '',
@@ -63,9 +65,11 @@ function EditUser() {
             });
             setCanSave(false);
             setIsLoading(false);
+            alert(`successfull save image : ${imgData.imgurl}`)
         } catch (error) {
             setCanSave(false)
             setIsLoading(false);
+            alert(`failed save image : ${imgData.imgurl}`)
         }
     } 
 
@@ -94,14 +98,14 @@ function EditUser() {
         <div className="userImgContainer">
             <div className="imgContainer">
                 <img src={imgData.imgurl || "https://banner2.cleanpng.com/20180627/wio/kisspng-computer-icons-user-profile-avatar-jain-icon-5b332c5add9336.0201786915300803469076.jpg"} alt="" />
-
+                
                 <div className="editIconAndFileInput" onClick={handleToClickImage} title='Change Profile Image'>
                     <MdCloudUpload color='white' size='40px'/>
-                    <input type="file" name="" id='userImg' onInput={handleToChangeImage}/>
+                    <input ref={refFileInput} type="file" name="" onChange={handleToChangeImage}/>
                 </div>
             </div>
             <div className="btnContainer">
-                <CustomButton buttonWidth='80px' onClick={canSave ? handleToSaveImage : handleToClickImage}>{canSave ? 'Save' : 'Edit'}</CustomButton>
+                <CustomButton buttonWidth='80px' onClick={canSave ? handleToSaveImage : handleToClickImage}>{canSave ? 'Upload' : 'Edit'}</CustomButton>
                 <CustomButton buttonWidth='80px' bgColor='redBG' onClick={handleToRemoveImage}>Remove</CustomButton>
             </div>
         </div>

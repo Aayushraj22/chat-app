@@ -15,7 +15,7 @@
         align-items: center;
         padding-inline: 0.5rem;
 
-        & > .iconStyle{
+        & > .searchIconStyle{
             cursor: pointer;
             font-size: 20px;
             width: 40px;

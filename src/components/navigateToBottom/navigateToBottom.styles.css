@@ -1,0 +1,12 @@
+.navigateBottom{
+    position: sticky;
+    bottom: 5px;
+    right: 5px;
+    margin-left: auto;
+    margin-top: auto;
+    width: 30px;
+    height: 30px;
+    background: white;
+    z-index: 3;
+    cursor: pointer;
+}
