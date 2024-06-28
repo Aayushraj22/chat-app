@@ -8,11 +8,12 @@ function CustomButton({
     onClick, 
     bgColor,
     disabled,
+    title,
 })
 
 {
   return (
-    <button className={`btn ${bgColor ? bgColor : ''} ${disabled ? 'disabledStyle' : ''}`} style={{width: `${buttonWidth ? buttonWidth : ''}`}} onClick={onClick} disabled={disabled ? true : false} title={disabled? 'Disable Button': ''}>
+    <button className={`btn ${bgColor ? bgColor : ''} ${disabled ? 'disabledStyle' : ''}`} style={{width: `${buttonWidth ? buttonWidth : ''}`}} onClick={onClick} disabled={disabled ? true : false} title={disabled? 'Disable': title}>
         {children}
     </button>
   )

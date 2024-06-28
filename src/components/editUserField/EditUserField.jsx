@@ -93,7 +93,7 @@ function EditUserField({fieldname,value}) {
             </div>
             <div className="secondChild">
                 <input type="text" disabled={fieldData.isDisable ? true : false}  onChange={handleToChangeInput} value={fieldData.isDisable ? fieldData.previous : fieldData.update}/>
-                <CustomButton buttonWidth='80px' onClick={handleToActiveInput} >Edit</CustomButton>
+                <CustomButton buttonWidth='80px' title='change username' onClick={handleToActiveInput} >Edit</CustomButton>
                 <CustomButton buttonWidth='80px' disabled={validateMsg?.includes('can be used') ? false : true} onClick={handleToSaveFiled}>Save</CustomButton>
             </div>
         </div>

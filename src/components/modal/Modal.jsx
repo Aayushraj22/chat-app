@@ -7,7 +7,7 @@ function Modal({onClose, children}) {
   return (
     <div className='modalContainer'>
         <div className="modalContentArea">
-            <CustomButton onClick={onClose} buttonWidth={'120px'} bgColor='redBG'>Close</CustomButton>
+            <CustomButton onClick={onClose} buttonWidth={'120px'} bgColor='redBG' title='Close Modal'>Close</CustomButton>
 
             <div className="childStyle">
                 {children}
